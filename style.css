@@ -1,0 +1,86 @@
+body{
+    font-family:'Open Sans',sans-serif;
+    background-image: url(image.png);
+}
+#tempDiv,#dateDiv,#iconDiv,#detailsDiv{
+    padding:5px 5px 5px 10px;
+}
+#contentDiv{
+    color:#000000;
+    max-width:400px;
+    margin:auto;
+    margin-top:20px;
+    background-color:#cee;
+    min-height:400px;
+    opacity: 0.5;
+    margin-bottom: 15px;
+}
+#contentDiv>div{display: block;}
+#headerDiv{
+    text-align: center;
+    font-family: 'Julius Sans One',cursive;
+    padding:10px;
+}
+#tempDiv{
+    font-size:30px;
+}
+#tempDiv>div{
+    display: inline-block;
+}
+#cityDiv{
+    
+}
+#dateDiv{
+    font-size:15px;
+}
+#iconDiv{
+    font-size:80px;
+    height:200px;
+    text-align: center;
+}
+#icon{
+    font-size:80px;
+}
+#status{
+    font-size:30px;
+}
+#linkDiv{
+    font-size:15px;
+    text-align: right;
+}
+a{
+    color:#3a2;
+    font-weight: bold;
+}
+a:hover{text-decoration: none;color:darkblue;}
+
+#detailsHeader{
+    background-color: mediumaquamarine;
+}
+#detailsDiv{
+    background-color: mediumaquamarine;
+    position:inherit;
+    bottom:0;
+    font-size:20px;
+    color:#000;
+    font-weight: bold;
+}
+#detailsDiv>div{
+    display:block;
+}
+#detailsHeader>h4{font-weight: bold;}
+#detailsHeader>h4:hover{
+    cursor: pointer;
+}
+#details i{width:25px;}
+div.parent>div{
+    display: inline-block;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+div.child2{
+    float:right;
+}
+@media only screen and (max-width:767px){
+    
+}
