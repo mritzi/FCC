@@ -1,21 +1,31 @@
 body{
     font-family:'Open Sans',sans-serif;
     background-image: url(image.png);
+    background-size: cover;
+    background-attachment: fixed;
 }
-#tempDiv,#dateDiv,#iconDiv,#detailsDiv{
-    padding:5px 5px 5px 10px;
+#initialMsg{
+    text-align: center;
+    margin-top:25%;
+    font-size:30px;
 }
-#contentDiv{
-    color:#000000;
+#weatherDiv{
+    color:#000;
     max-width:400px;
+    min-width:200px;
     margin:auto;
     margin-top:20px;
-    background-color:#cee;
     min-height:400px;
     opacity: 0.5;
     margin-bottom: 15px;
 }
-#contentDiv>div{display: block;}
+#weatherDiv>div{display: block;}
+#contentDiv,#detailsDiv{
+    padding:5px 5px 5px 10px;
+}
+#contentDiv{
+    
+}
 #headerDiv{
     text-align: center;
     font-family: 'Julius Sans One',cursive;
@@ -34,7 +44,6 @@ body{
     font-size:15px;
 }
 #iconDiv{
-    font-size:80px;
     height:200px;
     text-align: center;
 }
@@ -44,34 +53,29 @@ body{
 #status{
     font-size:30px;
 }
-#linkDiv{
-    font-size:15px;
-    text-align: right;
-}
 a{
     color:#3a2;
     font-weight: bold;
 }
 a:hover{text-decoration: none;color:darkblue;}
-
-#detailsHeader{
-    background-color: mediumaquamarine;
-}
+a:focus,a:visited{color:#3a2;text-decoration: none;}
 #detailsDiv{
-    background-color: mediumaquamarine;
-    position:inherit;
+    
     bottom:0;
     font-size:20px;
-    color:#000;
     font-weight: bold;
 }
 #detailsDiv>div{
     display:block;
 }
+#detailsHeader{
+    
+}
 #detailsHeader>h4{font-weight: bold;}
 #detailsHeader>h4:hover{
     cursor: pointer;
 }
+#details>div{display: block;}
 #details i{width:25px;}
 div.parent>div{
     display: inline-block;
