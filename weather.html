@@ -132,11 +132,15 @@
                     var city = prompt("Enter your city");
                     //hide div & show initialMsg
                     if(city.length>0){
+                        //reset temperatures icons to celcius
+                        $("i.wi-fahrenheit").attr("class","wi wi-celsius");
+                        //hide weatherDiv
                         $("#weatherDiv").css("display","none");
+                        //show intermediate message
                         $("#initialMsg").css("display","block");
 
                         var sUrl = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=db12807ec71a01fd7eccfddb3c657dcb";
-
+                        //make asynchronus API call
                         $.getJSON(sUrl,function(jsonQ){
                             setWeatherData(jsonQ);
                         });
@@ -147,21 +151,14 @@
                 $("#detailsHeader").click(function(){
                     var display = $("#details").css("display");
                     if(display.indexOf("none") >= 0){ 
-                        $("#details").css("display","block");
+                        $("#details").slideDown("slow");
                         $(this).find("i").removeClass("fa-caret-down").addClass("fa-caret-up");
                     }
                     else{  
-                        $("#details").css("display","none");
+                        $("#details").slideUp("slow");
                         $(this).find("i").removeClass("fa-caret-up").addClass("fa-caret-down");
                     }
                 });
-                /*
-                setDate();
-                var jsonObj = '{"coord":{"lon":73.92,"lat":18.57},"weather":[{"id":501,"main":"Rain","description":"moderate rain","icon":"10n"}],"base":"stations","main":{"temp":294.986,"pressure":944.83,"humidity":99,"temp_min":294.986,"temp_max":294.986,"sea_level":1019.32,"grnd_level":944.83},"wind":{"speed":3.65,"deg":249},"rain":{"3h":11.23},"clouds":{"all":92},"dt":1475586925,"sys":{"message":2.5127,"country":"IN","sunrise":1475542537,"sunset":1475585383},"id":7357900,"name":"Viman Nagar","cod":200}';
-                
-                var curWeather = JSON.parse(jsonObj);
-                setWeatherData(curWeather);
-                */
                 
             });
             
@@ -210,11 +207,6 @@
                 $("#sunset").text(sDate);
                 
                 // setting icon
-                /*
-                var iconJson = '{"200":"thunderstorm","201":"thunderstorm","202":"thunderstorm","210":"lightning","211":"lightning","212":"lightning","221":"lightning","230":"thunderstorm","231":"thunderstorm","232":"thunderstorm","300":"sprinkle","301":"sprinkle","302":"rain","310":"rain-mix","311":"rain","312":"rain","313":"showers","314":"rain","321":"sprinkle","500":"sprinkle","501":"rain","502":"rain","503":"rain","504":"rain","511":"rain-mix","520":"showers","521":"showers","522":"showers","531":"storm-showers","600":"snow","601":"snow","602":"sleet","611":"rain-mix","612":"rain-mix","615":"rain-mix","616":"rain-mix","620":"rain-mix","621":"snow","622":"snow","701":"showers","711":"smoke","721":"day-haze","731":"dust","741":"fog","761":"dust","762":"dust","771":"cloudy-gusts","781":"tornado","800":"day-sunny","801":"cloudy-gusts","802":"cloudy-gusts","803":"cloudy-gusts","804":"cloudy","900":"tornado","901":"storm-showers","902":"hurricane","903":"snowflake-cold","904":"hot","905":"windy","906":"hail","957":"strong-wind"}';
-                
-                var iconData = JSON.parse(iconJson);
-                */
                 var iconId = curWeather.weather[0].id;
                 
                 //color pairs (light shade, dark shade) for morning/evening,day, cloudy day & night respectively
@@ -268,7 +260,7 @@
                 $("#weatherDiv").css("color","#fff");
                 */
                 //show content, hide details Div & initialMsg
-                $("#weatherDiv").css("display","block");
+                $("#weatherDiv").slideDown("slow");
                 $("#details,#initialMsg").css("display","none");
                 
             }
