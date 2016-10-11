@@ -6,7 +6,7 @@
         <title>Weather App</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/weather-icons/0.0.1/css/weather-icons.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
         
         <!--cusrive-->
@@ -15,20 +15,24 @@
         <link rel="stylesheet" href="style.css"/>  
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="container">
-                <div id="contentDiv" class="center-block">
+        <h4 id="initialMsg">Loading weather data..</h4>
+        <div class="container">
+            <div id="weatherDiv" class="centre-block">
+                <div id="contentDiv">
                     <div id="headerDiv">
                         <h1>Weather App</h1>
                     </div>
                     <div id="tempDiv">
                         <div id="temp">
                             <span id="curTemp"></span>&nbsp;
-                            <a id="tempM"><i class="wi wi-celcius"></i></a>
+                            <a id="tempM"><i class="wi wi-celsius"></i></a>
                         </div>
                         <div id="cityDiv">
                             <strong>|</strong>
                             <span id="city"></span>
+                        </div>
+                        <div id="searchDiv">
+                            <a id="search"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div id="dateDiv">
@@ -42,68 +46,68 @@
                         </div>
                         <div id="status"></div>
                     </div>
-                    
-                    <div id="detailsDiv">
-                        <div id="detailsHeader">
-                            <h4>Details <i class="fa fa-caret-down"></i></h4>
+                    <!-- forecast div ends here -->
+                </div>
+                <!-- contentDiv ends here -->
+                <div id="detailsDiv">
+                    <div id="detailsHeader">
+                        <h4>Details <i class="fa fa-caret-down"></i></h4>
+                    </div>
+                    <div id="details">
+                        <div class="parent">
+                            <div class="child1">
+                                &nbsp;<i class="wi wi-thermometer-exterior"></i>
+                                <span>Min Temp</span>
+                            </div>
+                            <div class="child2">
+                                <span id="minTemp"></span>
+                                <i class="wi wi-celsius"></i>
+                            </div>
                         </div>
-                        <div id="details">
-                            <div class="parent">
-                                <div class="child1">
-                                    &nbsp;<i class="wi wi-thermometer-exterior"></i>
-                                    <span>Min Temp</span>
-                                </div>
-                                <div class="child2">
-                                    <span id="minTemp"></span>
-                                    <i class="wi wi-celcius"></i>
-                                </div>
+                        <div class="parent">
+                            <div class="child1">
+                                &nbsp;<i class="wi wi-thermometer"></i>
+                                <span>Max Temp</span>
                             </div>
-                            <div class="parent">
-                                <div class="child1">
-                                    &nbsp;<i class="wi wi-thermometer"></i>
-                                    <span>Max Temp</span>
-                                </div>
-                                <div class="child2">
-                                    <span id="maxTemp"></span>
-                                    <i class="wi wi-celcius"></i>
-                                </div>
+                            <div class="child2">
+                                <span id="maxTemp"></span>
+                                <i class="wi wi-celsius"></i>
                             </div>
-                            <div class="parent">
-                                <div class="child1">
-                                    <i class="wi wi-sunrise"></i>
-                                    <span>Sunrise</span>
-                                </div>
-                                <div class="child2">
-                                    <span id="sunrise"></span>
-                                </div>
+                        </div>
+                        <div class="parent">
+                            <div class="child1">
+                                <i class="wi wi-sunrise"></i>
+                                <span>Sunrise</span>
                             </div>
-                            <div class="parent">
-                                <div class="child1">
-                                    <i class="wi wi-sunset"></i>
-                                    <span>Sunset</span>
-                                </div>
-                                <div class="child2">
-                                    <span id="sunset"></span>
-                                </div>
+                            <div class="child2">
+                                <span id="sunrise"></span>
                             </div>
-                            <div class="parent">
-                                <div class="child1">
-                                    <i class="wi wi-sprinkle"></i>
-                                    <span>Humidity</span>
-                                </div>
-                                <div class="child2">
-                                    <span id="humidity"></span>
-                                </div>
+                        </div>
+                        <div class="parent">
+                            <div class="child1">
+                                <i class="wi wi-sunset"></i>
+                                <span>Sunset</span>
+                            </div>
+                            <div class="child2">
+                                <span id="sunset"></span>
+                            </div>
+                        </div>
+                        <div class="parent">
+                            <div class="child1">
+                                <i class="wi wi-sprinkle"></i>
+                                <span>Humidity</span>
+                            </div>
+                            <div class="child2">
+                                <span id="humidity"></span>
                             </div>
                         </div>
                     </div>
-                    <!-- forecast div ends here -->
                 </div>
-                <!-- content div ends here -->
+                <!-- detailsDiv end here -->
             </div>
-            <!-- container div ends here -->
+            <!-- weatherDiv ends here -->
         </div>
-        <!-- container-fluid div ends here-->
+        <!-- container div ends here-->
         
         <!-- html code ends here, script code starts from here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -111,7 +115,7 @@
         
         <script>
             $(document).ready(function(){
-                $("#details").css("display","none");
+                $("#weatherDiv").css("display","none");
                 
                 var lat,lon;
                 
@@ -123,6 +127,22 @@
                 }
                 $("#tempM").click(function(){
                     toggleTemp(this);
+                });
+                $("#search").click(function(){
+                    var city = prompt("Enter your city");
+                    //hide div & show initialMsg
+                    if(city.length>0){
+                        $("#weatherDiv").css("display","none");
+                        $("#initialMsg").css("display","block");
+
+                        var sUrl = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=db12807ec71a01fd7eccfddb3c657dcb";
+
+                        $.getJSON(sUrl,function(jsonQ){
+                            setWeatherData(jsonQ);
+                        });
+                    }
+
+                    //setDate();
                 });
                 $("#detailsHeader").click(function(){
                     var display = $("#details").css("display");
@@ -155,14 +175,14 @@
                     setWeatherData(jsonQ);
                 });
 
-                setDate();
+                //setDate();definition changed
                 alert("Location on Chrome browser won't be accurate due to deprecated geoLocation functions");
             }
             function fahrenheitToCelcius(temp){
                 return Math.round((temp-32)*5/9);
             }
-            function setDate(){
-                var today = new Date();
+            function setDate(dt){
+                var today = new Date(dt*1000);
                 var month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
                 var day = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
                 $("#day").text(day[today.getDay()]);
@@ -170,6 +190,9 @@
                 $("#date").text(date);
             }
             function setWeatherData(curWeather){
+                
+                setDate(curWeather.dt);
+                                
                 $("#city").text(curWeather.name);
                 $("#curTemp").text(Math.round(curWeather.main.temp-273.15));
                 $("#minTemp").text(Math.round(curWeather.main.temp_min-273.15));
@@ -178,21 +201,76 @@
                 $("#status").text(curWeather.weather[0].main);
                 
                 var sunrise = new Date(curWeather.sys.sunrise * 1000);
-                var sunrise = new Date(curWeather.sys.sunrise * 1000);
-                sunrise = (sunrise.getHours() +":"+ sunrise.getMinutes() +":"+sunrise.getSeconds());
+                var sDate = (sunrise.getHours() +":"+ sunrise.getMinutes() +":"+sunrise.getSeconds());
+                $("#sunrise").text(sDate);
+                
                 var sunset = new Date(curWeather.sys.sunset * 1000);
-                sunset = (sunset.getHours() +":"+ sunset.getMinutes() +":"+sunset.getSeconds());
-                $("#sunrise").text(sunrise);
-                $("#sunset").text(sunset);
+                sDate = (sunset.getHours() +":"+ sunset.getMinutes() +":"+sunset.getSeconds());
+                
+                $("#sunset").text(sDate);
                 
                 // setting icon
-                var iconJson = '{"200":"thunderstorm","201":"thunderstorm","202":"thunderstorm","210":"lightning","211":"lightning","212":"lightning","221":"lightning","230":"thunderstorm","231":"thunderstorm","232":"thunderstorm","300":"sprinkle","301":"sprinkle","302":"rain","310":"rain-mix","311":"rain","312":"rain","313":"showers","314":"rain","321":"sprinkle","500":"sprinkle","501":"rain","502":"rain","503":"rain","504":"rain","511":"rain-mix","520":"showers","521":"showers","522":"showers","531":"storm-showers","600":"snow","601":"snow","602":"sleet","611":"rain-mix","612":"rain-mix","615":"rain-mix","616":"rain-mix","620":"rain-mix","621":"snow","622":"snow","701":"showers","711":"smoke","721":"day-haze","731":"dust","741":"fog","761":"dust","762":"dust","771":"cloudy-gusts","781":"tornado","800":"day-sunny","801":"cloudy-gusts","802":"cloudy-gusts","803":"cloudy-gusts","804":"cloudy","900":"tornado","901":"storm-showers","902":"hurricane","903":"snowflake-cold","904":"hot","905":"windy","906":"hail","957":"strong-wind","day-200":"day-thunderstorm","day-201":"day-thunderstorm","day-202":"day-thunderstorm","day-210":"day-lightning","day-211":"day-lightning","day-212":"day-lightning","day-221":"day-lightning","day-230":"day-thunderstorm","day-231":"day-thunderstorm","day-232":"day-thunderstorm","day-300":"day-sprinkle","day-301":"day-sprinkle","day-302":"day-rain","day-310":"day-rain","day-311":"day-rain","day-312":"day-rain","day-313":"day-rain","day-314":"day-rain","day-321":"day-sprinkle","day-500":"day-sprinkle","day-501":"day-rain","day-502":"day-rain","day-503":"day-rain","day-504":"day-rain","day-511":"day-rain-mix","day-520":"day-showers","day-521":"day-showers","day-522":"day-showers","day-531":"day-storm-showers","day-600":"day-snow","day-601":"day-sleet","day-602":"day-snow","day-611":"day-rain-mix","day-612":"day-rain-mix","day-615":"day-rain-mix","day-616":"day-rain-mix","day-620":"day-rain-mix","day-621":"day-snow","day-622":"day-snow","day-701":"day-showers","day-711":"smoke","day-721":"day-haze","day-731":"dust","day-741":"day-fog","day-761":"dust","day-762":"dust","day-781":"tornado","day-800":"day-sunny","day-801":"day-cloudy-gusts","day-802":"day-cloudy-gusts","day-803":"day-cloudy-gusts","day-804":"day-sunny-overcast","day-900":"tornado","day-902":"hurricane","day-903":"snowflake-cold","day-904":"hot","day-906":"day-hail","day-957":"strong-wind","night-200":"night-alt-thunderstorm","night-201":"night-alt-thunderstorm","night-202":"night-alt-thunderstorm","night-210":"night-alt-lightning","night-211":"night-alt-lightning","night-212":"night-alt-lightning","night-221":"night-alt-lightning","night-230":"night-alt-thunderstorm","night-231":"night-alt-thunderstorm","night-232":"night-alt-thunderstorm","night-300":"night-alt-sprinkle","night-301":"night-alt-sprinkle","night-302":"night-alt-rain","night-310":"night-alt-rain","night-311":"night-alt-rain","night-312":"night-alt-rain","night-313":"night-alt-rain","night-314":"night-alt-rain","night-321":"night-alt-sprinkle","night-500":"night-alt-sprinkle","night-501":"night-alt-rain","night-502":"night-alt-rain","night-503":"night-alt-rain","night-504":"night-alt-rain","night-511":"night-alt-rain-mix","night-520":"night-alt-showers","night-521":"night-alt-showers","night-522":"night-alt-showers","night-531":"night-alt-storm-showers","night-600":"night-alt-snow","night-601":"night-alt-sleet","night-602":"night-alt-snow","night-611":"night-alt-rain-mix","night-612":"night-alt-rain-mix","night-615":"night-alt-rain-mix","night-616":"night-alt-rain-mix","night-620":"night-alt-rain-mix","night-621":"night-alt-snow","night-622":"night-alt-snow","night-701":"night-alt-showers","night-711":"smoke","night-721":"day-haze","night-731":"dust","night-741":"night-fog","night-761":"dust","night-762":"dust","night-781":"tornado","night-800":"night-clear","night-801":"night-alt-cloudy-gusts","night-802":"night-alt-cloudy-gusts","night-803":"night-alt-cloudy-gusts","night-804":"night-alt-cloudy","night-900":"tornado","night-902":"hurricane","night-903":"snowflake-cold","night-904":"hot","night-906":"night-alt-hail","night-957":"strong-wind"}';
+                /*
+                var iconJson = '{"200":"thunderstorm","201":"thunderstorm","202":"thunderstorm","210":"lightning","211":"lightning","212":"lightning","221":"lightning","230":"thunderstorm","231":"thunderstorm","232":"thunderstorm","300":"sprinkle","301":"sprinkle","302":"rain","310":"rain-mix","311":"rain","312":"rain","313":"showers","314":"rain","321":"sprinkle","500":"sprinkle","501":"rain","502":"rain","503":"rain","504":"rain","511":"rain-mix","520":"showers","521":"showers","522":"showers","531":"storm-showers","600":"snow","601":"snow","602":"sleet","611":"rain-mix","612":"rain-mix","615":"rain-mix","616":"rain-mix","620":"rain-mix","621":"snow","622":"snow","701":"showers","711":"smoke","721":"day-haze","731":"dust","741":"fog","761":"dust","762":"dust","771":"cloudy-gusts","781":"tornado","800":"day-sunny","801":"cloudy-gusts","802":"cloudy-gusts","803":"cloudy-gusts","804":"cloudy","900":"tornado","901":"storm-showers","902":"hurricane","903":"snowflake-cold","904":"hot","905":"windy","906":"hail","957":"strong-wind"}';
                 
                 var iconData = JSON.parse(iconJson);
+                */
                 var iconId = curWeather.weather[0].id;
-                var iconClass = iconData[iconId];
-                //alert(iconClass);
-                $("#icon").find("i").addClass("wi-" + iconClass);
+                
+                //color pairs (light shade, dark shade) for morning/evening,day, cloudy day & night respectively
+                var bgColors = ["#ffe88f","#ffe066","#fff","#cee","#acb4c4","#8d99ae","#3e4053","#000"];                
+                var curTime = new Date().getTime();
+                sunrise = sunrise.getTime();
+                sunset = sunset.getTime();
+                
+                //remove existing icon
+                $("#icon>i").attr("class","");
+                //night
+                if(curTime < sunrise || curTime > sunset){
+                    $("#icon").find("i").addClass("wi wi-owm-night-"+iconId);
+                    $("#contentDiv").css("background-color",bgColors[6]);
+                    $("#detailsDiv").css("background-color",bgColors[7]);
+                    $("#weatherDiv").css("color","#fff");
+                }
+                //day
+                else{
+                    $("#weatherDiv").css("color","#000");
+                    if(curWeather.weather[0].main !== 'Clear')
+                        $("#icon").find("i").addClass("wi wi-owm-day-"+iconId);
+                    else
+                        $("#icon").find("i").addClass("wi wi-owm-day-"+iconId);
+                    //cloudy or raining
+                    if(curWeather.weather[0].main.toLowerCase().indexOf("cloud")>=0 || curWeather.weather[0].main.toLowerCase().indexOf("rain")>=0){
+                        $("#contentDiv").css("background-color",bgColors[4]);
+                        $("#detailsDiv").css("background-color",bgColors[5]);
+                        
+                    }
+                    //clear day
+                    else{
+                        //morning or evening, diff btw sunrise & sunset is more than 2 hrs and curtime is less
+                        // than 2 hrs from sunrise & sunset
+                        if(sunset-sunrise> 2*60*60*1000 && (curTime-sunrise < 2*60*60*100 || sunset-curTime < 2*60*60*1000)){
+                            $("#contentDiv").css("background-color",bgColors[0]);
+                            $("#detailsDiv").css("background-color",bgColors[1]);
+                            
+                        }
+                        //other part of the day
+                        else{
+                            $("#contentDiv").css("background-color",bgColors[2]);
+                            $("#detailsDiv").css("background-color",bgColors[3]);
+                        }
+                    }
+                }
+                
+                /*
+                $("#contentDiv").css("background-color",bgColors[6]);
+                $("#detailsDiv").css("background-color",bgColors[7]);
+                $("#weatherDiv").css("color","#fff");
+                */
+                //show content, hide details Div & initialMsg
+                $("#weatherDiv").css("display","block");
+                $("#details,#initialMsg").css("display","none");
+                
             }
             function showPosition(position){
                 lat = position.coords.latitude;
@@ -205,24 +283,24 @@
                 });
 
                 setDate();
-                //$("#contentDiv").css("display","block");
+                
             }
             function toggleTemp(obj){
                 var iconClass = $(obj).find("i").attr("class");
                 var curTemp = $("#curTemp").text();
                 var minTemp = $("#minTemp").text();
                 var maxTemp = $("#maxTemp").text();
-                if(iconClass.indexOf("celcius") >= 0){
+                if(iconClass.indexOf("celsius") >= 0){
                     $("#curTemp").text(celciusToFahrenheit(curTemp));
                     $("#minTemp").text(celciusToFahrenheit(minTemp));
                     $("#maxTemp").text(celciusToFahrenheit(maxTemp));
-                    $(document).find("i.wi-celcius").removeClass("wi-celcius").addClass("wi-fahrenheit");
+                    $(document).find("i.wi-celsius").removeClass("wi-celsius").addClass("wi-fahrenheit");
                 }
                 else{
                     $("#curTemp").text(fahrenheitToCelcius(curTemp));
                     $("#minTemp").text(fahrenheitToCelcius(minTemp));
                     $("#maxTemp").text(fahrenheitToCelcius(maxTemp));
-                    $(document).find("i.wi-fahrenheit").removeClass("wi-fahrenheit").addClass("wi-celcius");
+                    $(document).find("i.wi-fahrenheit").removeClass("wi-fahrenheit").addClass("wi-celsius");
                 }
             }
         </script>
